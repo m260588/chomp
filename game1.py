@@ -5,6 +5,7 @@ pygame.init()
 
 screen_width = 800
 screen_height = 600
+title_size = 64
 
 BLUE = (0, 0, 225)
 BROWN = (204, 129, 43)
@@ -13,6 +14,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Blue Background and sand bottom')
 
 running = True
+background
 while running:
    for event in pygame.event.get():
        if event.type == pygame.QUIT:
