@@ -48,15 +48,15 @@ def draw_fishes(surf):
     #distriute fish on screen
     for _ in range(5):
         x = random.randint(0, screen_width-tile_size)
-        y = random.randint(0, screen_height-tile_size)
+        y = random.randint(0, screen_height-tile_size - 200)
         surf.blit(orange_fish, (x,y))
     for _ in range(2):
         x = random.randint(0, screen_width - tile_size)
-        y = random.randint(0, screen_height - tile_size - 150)
+        y = random.randint(0, screen_height - tile_size - 200)
         surf.blit(green_fish, (x, y))
     for _ in range(2):
         x = random.randint(0, screen_width - tile_size)
-        y = random.randint(0, screen_height - tile_size - 150)
+        y = random.randint(0, screen_height - tile_size - 200)
         surf.blit(fliped_fish, (x, y))
 
 
