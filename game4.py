@@ -9,10 +9,14 @@ screen_width = 800
 screen_height = 600
 tile_size = 64
 
+#add pygame clock
+clock = pygame.time.Clock()
+
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Classes')
 
 custom_font = pygame.font.Font("Assests/Fonts/Black_Crayon.ttf", 80)
+
 def draw_background(surf):
     water = pygame.image.load("Assests/Sprites/water.png").convert()
     sand = pygame.image.load("Assests/Sprites/sand_top.png").convert()
@@ -35,24 +39,36 @@ def draw_background(surf):
     text = custom_font.render("Chomp", True, (225,29,0))
     surf.blit(text, (screen_width/2-text.get_width()/2, screen_height/12-text.get_height()/12))
 
+
+
 running = True
 background = screen.copy()
 draw_background(background)
 
-
 for _ in range (5):
-    fishes.add(Fish(random.randint(0, screen_width-tile_size), random.randint(0, screen_height-tile_size)))
-
+    fishes.add(Fish(random.randint(screen_width, screen_width*2), random.randint(0, screen_height-tile_size)))
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-        screen.blit(background, (0, 0))
+    screen.blit(background, (0, 0))
 
-        fishes.draw(background)
+    #update fish position
+    fishes.update()
 
-        pygame.display.flip()
+    #check if fish have left the screen
+    for fish in fishes:
+        if fish.rect.x < -tile_size:
+            fishes.remove(fish)
+            fishes.add(Fish(random.randint(screen_width, screen_width*2), random.randint(0, screen_height-tile_size)))
 
-    pygame.quit()
+    fishes.draw(screen)
+
+    pygame.display.flip()
+
+    #set the frame rate
+    clock.tick(60)
+
+pygame.quit()
