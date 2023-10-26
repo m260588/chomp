@@ -1,5 +1,3 @@
-# create pygame sprite class for fish
-
 import pygame
 import random
 

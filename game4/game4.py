@@ -15,12 +15,12 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Classes')
 
-custom_font = pygame.font.Font("Assests/Fonts/Black_Crayon.ttf", 80)
+custom_font = pygame.font.Font("../Assests/Fonts/Black_Crayon.ttf", 80)
 
 def draw_background(surf):
-    water = pygame.image.load("Assests/Sprites/water.png").convert()
-    sand = pygame.image.load("Assests/Sprites/sand_top.png").convert()
-    seagrass = pygame.image.load("Assests/Sprites/seagrass.png").convert()
+    water = pygame.image.load("../Assests/Sprites/water.png").convert()
+    sand = pygame.image.load("../Assests/Sprites/sand_top.png").convert()
+    seagrass = pygame.image.load("../Assests/Sprites/seagrass.png").convert()
 
     sand.set_colorkey((0,0,0))
     seagrass.set_colorkey((0,0,0))
@@ -45,6 +45,8 @@ running = True
 background = screen.copy()
 draw_background(background)
 
+for _ in range (5):
+    fishes.add(Fish(random.randint(screen_width, screen_width*2), random.randint(0, screen_height-tile_size)))
 for _ in range (5):
     fishes.add(Fish(random.randint(screen_width, screen_width*2), random.randint(0, screen_height-tile_size)))
 
