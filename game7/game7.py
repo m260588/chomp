@@ -3,9 +3,12 @@ import sys
 import random
 
 from fish import Fish, fishes
-from background import draw_background
+from background import draw_background, add_fish, add_bad_fish
 from game_parameters import *
 from player import Player
+from bad_fish import bad_fish, Bad_Fish
+
+
 
 pygame.init()
 
@@ -20,8 +23,8 @@ running = True
 background = screen.copy()
 draw_background(background)
 
-for _ in range (10):
-    fishes.add(Fish(random.randint(screen_width, screen_height*2), random.randint(0, screen_height-tile_size)))
+add_fish(10)
+add_bad_fish(5)
 # draw player fish
 player = Player(screen_width/2, screen_height/2)
 
@@ -63,29 +66,39 @@ while running:
     # update fish position
     fishes.update()
 
+    bad_fish.update()
+
     player.update()
 
     #check for collisions
     result = pygame.sprite.spritecollide(player, fishes, True)
     #print(result)
+    bad_result = pygame.sprite.spritecollide(player, bad_fish, True)
     if result:
         score += len(result)
         pygame.mixer.Sound.play(chomp)
 
+    add_fish((len(result)))
 
-    for _ in range(len(result)):
-        fishes.add(Fish(random.randint(screen_width, screen_height * 2), random.randint(0, screen_height - tile_size)))
-
+    if bad_result:
+        for _ in range(len(result)):
+            add_bad_fish()
 
 
 
     for fish in fishes:
         if fish.rect.x < -tile_size:
             fishes.remove(fish)
-            fishes.add(Fish(random.randint(screen_width, screen_width*2), random.randint(0, screen_height-tile_size)))
+            add_fish(1)
 
+    for fish in bad_fish:
+        if fish.rect.x < -tile_size:
+            bad_fish.remove(fish)
+            add_bad_fish(1)
 
     fishes.draw(screen)
+
+    bad_fish.draw(screen)
 
     player.draw(screen)
 
